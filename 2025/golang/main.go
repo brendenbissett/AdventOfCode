@@ -4,7 +4,8 @@ import (
 	"fmt"
 
 	//day_one "github.com/brendenbissett/AdventOfCode/2025/golang/days/1"
-	day_two "github.com/brendenbissett/AdventOfCode/2025/golang/days/2"
+
+	day_three "github.com/brendenbissett/AdventOfCode/2025/golang/days/3"
 )
 
 func main() {
@@ -13,6 +14,8 @@ func main() {
 	//day_one.SolveDay1("days/1/test_input.txt")
 	//day_one.SolveDay1("days/1/input.txt")
 
-	day_two.SolveDay2("days/2/test_input.txt")
+	//day_two.SolveDay2("days/2/test_input.txt")
+	//day_two.SolveDay2("days/2/input.txt")
 
+	day_three.SolveDay3_Part1("days/3/test_input.txt")
 }

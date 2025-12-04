@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/brendenbissett/AdventOfCode/2025/golang/internal/lib"
 )
@@ -25,7 +26,26 @@ func SolveDay3_Part1(filePath string) {
 
 	for i, v := range banks {
 		fmt.Printf("%d - %s\n", i, v)
+
+		GetJoltage(v)
 	}
+}
+
+func GetJoltage(bank string) int {
+
+	batteries := strings.Split(bank, "")
+
+	fmt.Println(batteries)
+
+	for i := 9; i >= 0; i-- {
+		var stringVal = string(i)
+		if strings.Contains(bank, stringVal) {
+			index := strings.Index(bank, stringVal)
+			fmt.Printf("Found %d at index %d\n", i, index)
+		}
+	}
+
+	return 0
 }
 
 func parseFileContents(file *os.File) []string {

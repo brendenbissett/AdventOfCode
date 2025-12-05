@@ -36,9 +36,13 @@ func TestDay3(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		out := GetJoltage(tc.input)
-		if out != tc.expected {
-			t.Errorf("%s test failed. expected %d - received %d", tc.name, tc.expected, out)
-		}
+
+		// Use t.Run to run each case as a subtest
+		t.Run(tc.name, func(t *testing.T) {
+			out := GetJoltage(tc.input)
+			if out != tc.expected {
+				t.Errorf("%s test failed. expected %d - received %d", tc.name, tc.expected, out)
+			}
+		})
 	}
 }

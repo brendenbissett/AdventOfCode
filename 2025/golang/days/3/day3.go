@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/brendenbissett/AdventOfCode/2025/golang/internal/lib"
@@ -31,21 +32,77 @@ func SolveDay3_Part1(filePath string) {
 	}
 }
 
+type battery struct {
+	value   int
+	indexes []int
+}
+
 func GetJoltage(bank string) int {
 
 	batteries := strings.Split(bank, "")
+	var list []battery
 
 	fmt.Println(batteries)
 
 	for i := 9; i >= 0; i-- {
-		var stringVal = string(i)
+		var stringVal = strconv.Itoa(i)
 		if strings.Contains(bank, stringVal) {
-			index := strings.Index(bank, stringVal)
-			fmt.Printf("Found %d at index %d\n", i, index)
+
+			list = append(list, battery{
+				value:   i,
+				indexes: getAllIndexes(bank, stringVal),
+			})
 		}
 	}
 
+	fmt.Println(list)
+
+	// Logic
+	count := len(list)
+	if count >= 2 {
+		item1 := list[0]
+		item2 := list[1]
+
+		var result = ""
+		if item1.indexes[0] < item2.indexes[0] {
+			result = fmt.Sprintf("%d%d", item1.value, item2.value)
+		} else {
+			result = fmt.Sprintf("%d%d", item2.value, item1.value)
+
+			if item1.indexes[0] < count-1 {
+				// as long as largest number is not the last
+			}
+		}
+
+		intVal, err := strconv.Atoi(result)
+		if err != nil {
+			fmt.Printf("Could not convert %s to interger. %e\n", result, err)
+		}
+		return intVal
+	}
+
 	return 0
+}
+
+func getAllIndexes(text string, searchTerm string) []int {
+
+	var indexes []int
+
+	offset := 0
+	index := 0
+	for {
+		index = strings.Index(text[offset:], searchTerm)
+		if index == -1 {
+			break
+		}
+
+		absoluteIndex := index + offset
+		indexes = append(indexes, absoluteIndex)
+
+		offset = absoluteIndex + len(searchTerm)
+	}
+
+	return indexes
 }
 
 func parseFileContents(file *os.File) []string {
